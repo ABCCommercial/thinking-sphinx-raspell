@@ -55,6 +55,7 @@ module ThinkingSphinx
     # @return [String] Spelling correction for the given word.
     # 
     def corrected_word(word)
+      return word unless word =~ /[^\W\d_]/
       speller.check(word) ? word : speller.suggest(word).first
     end
     
