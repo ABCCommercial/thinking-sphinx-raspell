@@ -55,7 +55,9 @@ module ThinkingSphinx
     # @return [String] Spelling correction for the given word.
     # 
     def corrected_word(word)
-      return word unless word =~ /[^\W\d_]/
+      # Don't spellcheck a word if it contains a digit or non-word character.
+      # This allows numbers and numbers with ordinals to be passed through happily.
+      return word if word =~ /[\W\d_]/
       speller.check(word) ? word : speller.suggest(word).first
     end
     

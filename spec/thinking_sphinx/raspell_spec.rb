@@ -15,6 +15,18 @@ describe ThinkingSphinx::Search do
       search = ThinkingSphinx::Search.new('words all correct here')
       search.suggestion.should == 'words all correct here'
     end
+
+    context 'with digits in the query' do
+      it "should return a spelling suggestion, if there is one" do
+        search = ThinkingSphinx::Search.new('wodrs incorret 100 on 1st purpose')
+        search.suggestion.should == 'words incorrect 100 on 1st purpose'
+      end
+        
+      it "should be actual query if there is no suggestion" do
+        search = ThinkingSphinx::Search.new('words all 100 correct 1st here')
+        search.suggestion.should == 'words all 100 correct 1st here'
+      end
+    end
   end
   
   describe '#suggestion?' do
